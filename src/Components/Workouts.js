@@ -14,7 +14,7 @@ const Workouts = () => {
 
     const createWorkout = async (title,reps,load,duration)=>{
         const res = await fetch(
-            "https://react-fitness-app-822e4-default-rtdb.firebaseio.com/fitness-app.json",
+            process.env.REACT_APP_DB_HOST+".json",
             {
                 method:"POST",
                 headers:{
@@ -35,7 +35,7 @@ const Workouts = () => {
     }
 
     const deleteWorkout = async (id)=>{
-        const res = await fetch(`https://react-fitness-app-822e4-default-rtdb.firebaseio.com/fitness-app/${id}.json`,{
+        const res = await fetch(process.env.REACT_APP_DB_HOST + `/${id}.json`,{
             method:'DELETE'
         })
         if(res.ok){
@@ -55,7 +55,7 @@ const Workouts = () => {
     useEffect(()=>{
         const fetchWorkout= async()=>{
             setLoading(true)
-            const res = await fetch("https://react-fitness-app-822e4-default-rtdb.firebaseio.com/fitness-app.json")
+            const res = await fetch(process.env.REACT_APP_DB_HOST+".json")
             const json = await res.json()
             if(res.ok){
                 setLoading(false)
