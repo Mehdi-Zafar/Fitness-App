@@ -5,6 +5,8 @@ import AddWorkout from "./AddWorkout";
 import SingleWorkout from "./SingleWorkout";
 import { BeatLoader } from "react-spinners";
 import { WorkoutContext } from "../context/WorkoutContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Workouts = () => {
@@ -32,6 +34,9 @@ const Workouts = () => {
         const newWorkout = {[json.name]:{title,reps,load,duration}}
         const NewWorkouts = {...workouts,...newWorkout};
         setWorkouts(NewWorkouts)
+        if(res.ok){
+            toast("Workout Added Successfully!")
+        }
     }
 
     const deleteWorkout = async (id)=>{
@@ -41,6 +46,7 @@ const Workouts = () => {
         if(res.ok){
             const {[id]:remove,...workoutsLeft} = workouts;
             setWorkouts(workoutsLeft);
+            toast("Workout Deleted Successfully!")
         }
     }
 
@@ -73,6 +79,7 @@ const Workouts = () => {
 
 
     return ( 
+        <>
         <div className="workouts">
             <h3>Your Workouts</h3>
             <div className="flex-container">
@@ -89,6 +96,18 @@ const Workouts = () => {
                 <AddWorkout createWorkout={createWorkout}/>
             </div>
         </div>
+        <ToastContainer 
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="dark"/>
+        </>
      );
 }
  
